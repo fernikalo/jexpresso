@@ -44,6 +44,19 @@ function user_bc_dirichlet!(q::AbstractArray, gradq::AbstractArray, x::AbstractF
             u = uR
             p = pR
         end
+    elseif (case == "sod_prob1")
+        ρL, uL, pL = 1.000, 0.75, 1.0
+        ρR, uR, pR = 0.125, 0.0, 0.1
+        xshock_initial = 0.3
+        if (x < xshock_initial)
+            ρ = ρL
+            u = uL
+            p = pL
+        else
+            ρ = ρR
+            u = uR
+            p = pR
+        end
     elseif (case == "sound")
         ρ = 1.0
         u = 0.0

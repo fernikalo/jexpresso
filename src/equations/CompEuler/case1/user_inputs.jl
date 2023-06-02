@@ -3,11 +3,11 @@ function user_inputs()
         #---------------------------------------------------------------------------
         # User define your inputs below: the order doesn't matter
         #---------------------------------------------------------------------------
-        :tend                 => 2.0, #2π,
-        :Δt                   => 5.0e-4,#8.75e-4,
-        :ode_solver           => "Tsit5",
-        :ndiagnostics_outputs => 2,
-        :case                 => "sod", 
+        :tend                 => 0.2, #2π,
+        :Δt                   => 2.0e-4,#8.75e-4,
+        :ode_solver           => "SSPRK54",#"Tsit5",
+        :ndiagnostics_outputs => 5,
+        :case                 => "sod_prob1", 
         #---------------------------------------------------------------------------
         #Integration and quadrature properties
         #---------------------------------------------------------------------------
@@ -18,7 +18,8 @@ function user_inputs()
         #---------------------------------------------------------------------------
         # Plotting parameters
         #---------------------------------------------------------------------------
-        :outformat           => "png",
+        :outformat           => "ascii",
+        #:outformat           => "png",
         #:lplot_surf3d        => true,   #false by default
         #:smoothing_factor    => 1.0, #factor for spline2d interpolation. 
         #---------------------------------------------------------------------------
@@ -26,14 +27,16 @@ function user_inputs()
         #---------------------------------------------------------------------------
         :lvisc                => true, # default is true
         :visc_model           => "dsgs",
-        :νx                   => 1.0, #kinematic viscosity constant
-        :νy                   => 1.0, #kinematic viscosity constant
+        :νx                   => 0.01, #1.0, #kinematic viscosity constant
+        :νy                   => 0.01, #1.0, #kinematic viscosity constant
         #---------------------------------------------------------------------------
         # Mesh paramters and files:
         #---------------------------------------------------------------------------
-        :nelx                 =>  50,
-        :xmin                 =>  -5.0,
-        :xmax                 =>   5.0,
+        :nelx                 =>  100,
+        :xmin                 =>  0.0,
+        :xmax                 =>  1.0,
+        #:xmin                 =>  -5.0,
+        #:xmax                 =>   5.0,
         #:lread_gmsh          => true, #If false, a 1D problem will be enforced
         #:gmsh_filename       => "./meshes/gmsh_grids/hexa_TFI_1x1.msh",
         #:gmsh_filename       => "./meshes/gmsh_grids/hexa_TFI_2x2.msh",

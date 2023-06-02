@@ -8,7 +8,7 @@ function user_inputs()
         :tend                 => 1.5,
         :ode_solver          => "Tsit5", #"SSPRK53",
         :Δt                   => 1e-3,
-        :ndiagnostics_outputs => 4, #these are steps, not seconds
+        :ndiagnostics_outputs => 10, #these are steps, not seconds
         #:output_dir          => "/Users/simone/runs/",
         #---------------------------------------------------------------------------
         #Integration and quadrature properties

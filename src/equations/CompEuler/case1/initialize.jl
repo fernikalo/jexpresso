@@ -36,6 +36,34 @@ function initialize(SD::NSD_1D, PT::CompEuler, mesh::St_mesh, inputs::Dict, OUTP
                 
             end
         end
+    elseif (inputs[:case] === "sod_prob1")
+        @info " Sod shock-tube Ammar-Hakim JE2" #https://ammar-hakim.org/sj/je/je2/je2-euler-shock.html#problem-1
+
+        ρL, uL, pL = 1.000, 0.75, 1.0
+        ρR, uR, pR = 0.125, 0.0, 0.1
+        xshock_initial = 0.3
+        
+    	for iel_g = 1:mesh.nelem
+            for i=1:mesh.ngl
+                
+                ip = mesh.connijk[i,iel_g]
+                x  = mesh.x[ip]
+                
+                if (x < xshock_initial)
+                    ρ = ρL
+                    u = uL
+                    p = pL
+                else
+                    ρ = ρR
+                    u = uR
+                    p = pR
+                end
+                q.qn[ip,1] = ρ                       #ρ
+                q.qn[ip,2] = ρ*u                     #ρu
+                q.qn[ip,3] = p/(PhysConst.γ - 1.0) + 0.5*ρ*u*u #ρE
+                
+            end
+        end
     elseif (inputs[:case] === "smooth")
         
         @info " Smooth Sod tube"

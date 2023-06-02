@@ -43,7 +43,7 @@ function write_output(sol::ODESolution, SD::NSD_3D, mesh::St_mesh, OUTPUT_DIR::S
 end
 
 # ASCII
-function write_output(sol::ODESolution, SD::NSD_1D, mesh::St_mesh, OUTPUT_DIR::String, inputs::Dict, outformat::ASCII; nvar=1)
+function write_output(sol::ODESolution, SD::NSD_1D, mesh::St_mesh, OUTPUT_DIR::String, inputs::Dict, outformat::ASCII; nvar=1,PT=nothing)
 
     println(string(" # Writing output to ASCII file:", OUTPUT_DIR, "*.dat ...  ") )
     for iout = 1:size(sol.t[:],1)
@@ -53,8 +53,10 @@ function write_output(sol::ODESolution, SD::NSD_1D, mesh::St_mesh, OUTPUT_DIR::S
             fout_name = string(OUTPUT_DIR, "/ivar", ivar, "-it", iout, ".dat")
             open(fout_name, "w") do f
                 idx = (ivar - 1)*mesh.npoin
-                for ip = (ivar-1)*mesh.npoin+1:ivar*mesh.npoin
-                    @printf(f, " %f \n", sol.u[iout][ip])
+                #for ip = (ivar-1)*mesh.npoin+1:ivar*mesh.npoin
+                for ip = 1:mesh.npoin
+                    #@printf(f, " %f \n", sol.u[iout][ip])
+                    @printf(f, " %f %f \n", mesh.x[ip], sol.u[iout][ip])
                 end
             end
         end
